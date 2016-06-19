@@ -32,5 +32,9 @@ public class PageController {
 	public ModelAndView products() {
 		return new ModelAndView("public/products").addObject("view", "products");		
 	}
+	@RequestMapping("/default") 
+	public ModelAndView defaultTemplate() {
+		return new ModelAndView("public/default").addObject("view", "products");		
+	}
 
 }

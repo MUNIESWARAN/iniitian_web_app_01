@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${param.contextPath}/index">iNIITian Shop</a>
+                <a class="navbar-brand" href="${param.contextPath}">iNIITian Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -21,7 +21,7 @@
                         <a href="${param.contextPath}/contact">Contact</a>
                     </li>
                     <li id="products">
-                        <a href="${param.contextPath}/products">ViewAll</a>
+                        <a href="${param.contextPath}/#/product/all">View All</a>
                     </li>
                     <li id="login">
                         <a href="${param.contextPath}/login">

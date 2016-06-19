@@ -6,3 +6,4 @@
 
     <!-- Angular Core JavaScript -->
     <script src="${param.js}/angular.min.js"></script>
+    <script src="${param.js}/angular-route.min.js"></script>

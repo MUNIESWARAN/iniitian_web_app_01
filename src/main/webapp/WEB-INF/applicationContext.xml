@@ -1,28 +1,77 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"		 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	
-	xsi:schemaLocation= "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">	
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-	<context:component-scan base-package="com.khozema.iniitian"/>
-	
-	<mvc:annotation-driven/>
-	
+	<context:component-scan base-package="com.khozema.iniitian" />
+
+	<mvc:annotation-driven>
+<!-- 		<mvc:message-converters>
+		    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		        <property name="objectMapper">
+		            <bean class="com.khozema.iniitian.json.HibernateAwareObjectMapper" />
+		        </property>
+		    </bean>
+		</mvc:message-converters>	
+ -->	</mvc:annotation-driven>
+
 	<mvc:view-controller path="/" view-name="public/index" />
-	
+
 	<!-- Database configuration will come here -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:tcp://localhost/~/test" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+	</bean>
+
+	<!-- Configure the SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.khozema.iniitian.entity.Category</value>
+				<value>com.khozema.iniitian.entity.Product</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Transaction Manager Bean -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	
-	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
 	<!-- various entity class can be configured here -->
+	<bean id="categoryDAO" class="com.khozema.iniitian.dao.CategoryDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="categoryService" class="com.khozema.iniitian.service.CategoryServiceImpl">
+		<property name="categoryDAO" ref="categoryDAO"/>
+	</bean>
 	
-	
+	<bean id="productDAO" class="com.khozema.iniitian.dao.ProductDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="productService" class="com.khozema.iniitian.service.ProductServiceImpl">
+		<property name="productDAO" ref="productDAO"/>
+	</bean>
+
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 </beans>

@@ -2,9 +2,9 @@
  * custom jQuery function
  * */
 
-$(function(){
+$(function() {
 	// active menu problem
-	switch(view){
+	switch (view) {
 	case 'about':
 		$('#about').addClass('active');
 		break;
@@ -24,6 +24,19 @@ $(function(){
 		$('#admin').addClass('active');
 		break;
 	}
-	
-	
+
+	/*
+	 * Carousel Issue
+	 */
+	$('.carousel').carousel({
+		interval : 2000,
+		pause : "hover",
+		wrap : true
+	}).on('click', '.carousel-control', handle_nav);
+
+	var handle_nav = function(e) {
+		e.preventDefault();
+		var nav = $(this);
+		nav.parents('.carousel').carousel(nav.data('slide'));
+	}
 });
