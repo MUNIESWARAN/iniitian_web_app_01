@@ -28,7 +28,24 @@
     		<hr/>
         <div class="row">
         		<%-- Registration form code --%>
-        		
+        		<div class="col-md-offset-2 col-md-8">
+        		   
+			   <form class="form-signin">
+			   <div class="form-group">
+		        <label for="inputEmail" class="sr-only">Email address</label>
+		        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>			   
+			   </div>
+			   <div class="form-group">			   
+		        <label for="inputPassword" class="sr-only">Choose Password</label>
+		        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		       </div>
+			   <div class="form-group">			   
+		        <label for="inputPassword" class="sr-only">Confirm Password</label>
+		        <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+		       </div>
+		        <button class="btn btn-sm btn-primary" type="submit">Register</button>
+		      </form>
+	      </div>        		                		
         
         
         </div>

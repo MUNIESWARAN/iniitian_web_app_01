@@ -28,9 +28,13 @@ public class PageController {
 	public ModelAndView register() {
 		return new ModelAndView("public/register").addObject("view", "register");		
 	}
-	@RequestMapping("/products") 
+	@RequestMapping("/productList") 
 	public ModelAndView products() {
-		return new ModelAndView("public/products").addObject("view", "products");		
+		return new ModelAndView("public/productList").addObject("view", "productList");		
+	}
+	@RequestMapping("/productView") 
+	public ModelAndView productView() {
+		return new ModelAndView("public/productView").addObject("view", "productView");		
 	}
 	@RequestMapping("/default") 
 	public ModelAndView defaultTemplate() {

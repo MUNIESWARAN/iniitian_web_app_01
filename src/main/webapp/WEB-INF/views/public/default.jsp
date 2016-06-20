@@ -43,7 +43,9 @@
 					<div>{{ categoryCtrl.error }}</div>
                     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="category in categoryCtrl.categories">
                         <div class="thumbnail">
-                            <img ng-src="resources/images/{{category.imageUrl}}" />
+                        		<a ng-href="#/category/{{category.id}}/product">
+                            		<img ng-src="resources/images/{{category.imageUrl}}" />
+                            	</a>
                             <div class="caption">
                                 <h4><a ng-href="#/category/{{category.id}}/product">{{ category.name }}</a>
                                 </h4>

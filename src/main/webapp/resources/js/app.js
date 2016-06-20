@@ -15,14 +15,19 @@
 			controllerAs: 'categoryCtrl'	
 		})
 		.when("/category/:id/product", {
-			templateUrl : 'products',
+			templateUrl : 'productList',
 			controller: 'ProductListController',
 			controllerAs: 'productListCtrl'	
 		})
 		.when("/product/all", {
-			templateUrl : 'products',
+			templateUrl : 'productList',
 			controller: 'ProductListController',
 			controllerAs: 'productListCtrl'	
+		})
+		.when("/product/:id/show", {
+			templateUrl : 'productView',
+			controller: 'ProductController',
+			controllerAs: 'productCtrl'	
 		})
 		.otherwise({
 			redirectTo: '/'
@@ -64,6 +69,19 @@
 		)
 	}]);
 	
+	app.controller('ProductController', ['$http', '$routeParams',  function($http, $routeParams) {
+		var self = this;
+		self.product = {};
+		self.error = '';
+		self.url = '/iniitianWebApp01/product/' + $routeParams.id;		
+		$http.get(self.url)
+			.then(function mySuccess(response){
+				self.product = response.data;
+			}, function myError(response) {
+				self.error = response.statusText;
+			}
+		)
+	}]);
 	
 	
 	
