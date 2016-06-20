@@ -22,7 +22,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 		
 	@Override
-	public Product get(Long id) {
+	public Product get(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Product.class, id);
 	}
@@ -36,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public Category getCategory(Long id) {
+	public Category getCategory(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("FROM Category as c WHERE c.id="+id);
 		return (Category) query.uniqueResult();
@@ -44,7 +44,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> getProductsByCategory(Long id) {
+	public List<Product> getProductsByCategory(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		List<Product> products = session.createQuery("FROM Product as p WHERE p.categoryId="+id).list();
 		return products;		
@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void remove(Long id) {
+	public void remove(int id) {
 		Session session = sessionFactory.getCurrentSession();		
 		Product product = session.get(Product.class, id);
 		session.delete(product);		

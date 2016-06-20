@@ -2,34 +2,51 @@ package com.khozema.iniitian.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Product {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="productId")
-	private Long id;
+	private int id;
+	@NotBlank(message = "Please enter a name! *")
 	private String name;
+	@NotBlank(message = "Please enter brand name! *")
 	private String brand;
 	private double price;
 	private int quantity;
+	@NotBlank(message = "Please enter description! *")
 	private String description;
 	private String imageUrl;
-	private Long categoryId;
-	
-	public Long getCategoryId() {
+	@Range(min = 1 , message = "Please select a category! *")
+	private int categoryId;
+	@Transient
+	@JsonIgnore
+	private MultipartFile file;
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public int getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(Long categoryId) {
+	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
@@ -41,11 +58,11 @@ public class Product {
 		this.imageUrl = imageUrl;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -87,6 +104,13 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", brand=" + brand + ", price=" + price + ", quantity="
+				+ quantity + ", description=" + description + ", imageUrl=" + imageUrl + ", categoryId=" + categoryId
+				+ "]";
 	}
 	
 	

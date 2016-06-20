@@ -29,12 +29,12 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/{id}")
-	public @ResponseBody Product get(@PathVariable("id") Long id) {
+	public @ResponseBody Product get(@PathVariable("id") int id) {
 		return this.productService.get(id);
 	}
 	
 	@RequestMapping(value = "/{id}/category")
-	public @ResponseBody HashMap<String,Object> getCategory(@PathVariable("id") Long id) {
+	public @ResponseBody HashMap<String,Object> getCategory(@PathVariable("id") int id) {
 		HashMap<String,Object> test = new HashMap<String,Object>();
 		test.put("category", productService.getCategory(id));
 		test.put("product", productService.getProductsByCategory(id));

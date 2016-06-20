@@ -39,4 +39,5 @@ $(function() {
 		var nav = $(this);
 		nav.parents('.carousel').carousel(nav.data('slide'));
 	}
+		
 });

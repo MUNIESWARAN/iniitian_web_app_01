@@ -22,7 +22,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 	
 	@Override
-	public Category get(Long id) {		
+	public Category get(int id) {		
 		Session session = sessionFactory.getCurrentSession();
 		return (Category) session.get(Category.class, id);
 	}
@@ -36,7 +36,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Product> getProducts(Long id) {
+	public List<Product> getProducts(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		List<Product> products = session.createQuery("FROM Product as p WHERE p.categoryId="+id).list();
 		return products;		
@@ -57,7 +57,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void remove(Long id) {
+	public void remove(int id) {
 		// Retrieve session
 		Session session = sessionFactory.getCurrentSession();
 		

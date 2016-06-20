@@ -47,3 +47,22 @@ body {
 footer {
     margin: 50px 0;
 }
+
+
+/*
+Error class
+*/
+.error {
+	color:#ff0000;
+}
+
+/*
+Element Selector
+*/
+#imgContainer {
+	width:200px;
+}
+#imgContainer img {
+	width:inherit;
+	height:auto;
+}

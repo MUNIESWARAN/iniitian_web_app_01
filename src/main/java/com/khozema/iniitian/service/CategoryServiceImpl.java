@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	@Transactional
-	public Category get(Long id) {
+	public Category get(int id) {
 		return this.categoryDAO.get(id);
 	}
 
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional
-	public List<Product> getProducts(Long id) {
+	public List<Product> getProducts(int id) {
 		return this.categoryDAO.getProducts(id);
 	}
 
@@ -52,7 +52,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional
-	public void remove(Long id) {
+	public void remove(int id) {
 		this.categoryDAO.remove(id);
 	}
 

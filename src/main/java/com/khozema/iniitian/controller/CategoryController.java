@@ -27,11 +27,11 @@ public class CategoryController {
 		return this.categoryService.getAll();
 	}
 	@RequestMapping(value = "/{id}")
-	public @ResponseBody Category get(@PathVariable("id") Long id) {
+	public @ResponseBody Category get(@PathVariable("id") int id) {
 		return this.categoryService.get(id);
 	}
 	@RequestMapping(value = "/{id}/product")
-	public @ResponseBody List<Product> getProducts(@PathVariable("id") Long id) {
+	public @ResponseBody List<Product> getProducts(@PathVariable("id") int id) {
 		return this.categoryService.getProducts(id);
 	}	
 	

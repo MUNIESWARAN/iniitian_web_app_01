@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	@Transactional
-	public Product get(Long id) {
+	public Product get(int id) {
 		return this.productDAO.get(id);
 	}
 
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public Category getCategory(Long id) {
+	public Category getCategory(int id) {
 		return this.productDAO.getCategory(id);
 	}
 
@@ -52,13 +52,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public void remove(Long id) {
+	public void remove(int id) {
 		this.productDAO.remove(id);
 	}
 
 	@Override
 	@Transactional
-	public List<Product> getProductsByCategory(Long id) {		
+	public List<Product> getProductsByCategory(int id) {		
 		return this.productDAO.getProductsByCategory(id);
 	}
 

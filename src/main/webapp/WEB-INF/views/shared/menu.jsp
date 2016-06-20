@@ -31,10 +31,12 @@
                     <li id="register">
                         <a href="${param.contextPath}/register"><span class="glyphicon glyphicon-user"></span> Register</a>
                     </li>
-                    <li id="admin">
-                        <a href="${param.contextPath}/admin/index">Admin</a>
-                    </li>
-                </ul>
+					<li>
+					 <a href="" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+		              <ul class="dropdown-menu">
+		                <li><a href="${param.contextPath}/admin/product/add">Add Product</a></li>
+		                <li><a href="${param.contextPath}/admin/listProduct">List Product</a></li>
+	                  </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

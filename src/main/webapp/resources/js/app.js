@@ -7,7 +7,7 @@
 	
 	var app = angular.module('webapp', ['ngRoute']);
 	
-	app.config(function($routeProvider, $locationProvider){
+	app.config(function($routeProvider){
 		$routeProvider
 		.when("/", {
 			templateUrl : 'default',
@@ -77,6 +77,21 @@
 		$http.get(self.url)
 			.then(function mySuccess(response){
 				self.product = response.data;
+			}, function myError(response) {
+				self.error = response.statusText;
+			}
+		)
+	}]);
+	
+
+	app.controller('AdminProductController', ['$http',  function($http) {
+		var self = this;
+		self.products = [];
+		self.error = '';
+		self.url = '/iniitianWebApp01/product/all';		
+		$http.get(self.url)
+			.then(function mySuccess(response){
+				self.products = response.data;
 			}, function myError(response) {
 				self.error = response.statusText;
 			}
