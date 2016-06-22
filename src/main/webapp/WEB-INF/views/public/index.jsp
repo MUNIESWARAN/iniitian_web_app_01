@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
 <html lang="en" ng-app="webapp">
@@ -15,11 +16,12 @@
 </jsp:include>
 <%-- ------------------- --%>
 <body>
-	<%-- include file for menu --%>	
-	<jsp:include page="../shared/menu.jsp">
+	<%-- include file for menu --%>
+	<%@ include file="../shared/menu.jsp" %>	
+<%-- 	<jsp:include page="../shared/menu.jsp">
 		<jsp:param value="${contextPath}" name="contextPath"/> 
 	</jsp:include>
-	<%-- ------------------- --%>
+ --%>	<%-- ------------------- --%>
     <!-- Page Content -->
     <div class="container" ng-controller="CategoryController as categoryCtrl">
 		<div ng-view></div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
 <html lang="en">
@@ -17,10 +18,11 @@
 <body>
 
 	<%--include file to display the menu --%>
-	<jsp:include page="../shared/menu.jsp">
+	<%@include file="../shared/menu.jsp" %>
+<%-- 	<jsp:include page="../shared/menu.jsp">
 		<jsp:param value="${contextPath}" name="contextPath"/> 
 	</jsp:include>
-	<%-- -------------------- --%>
+ --%>	<%-- -------------------- --%>
 	
     <!-- Page Content -->
     <div class="container">
@@ -29,23 +31,30 @@
         <div class="row">
         		<%-- Login form code --%>
         		<div class="col-md-offset-2 col-md-8">
+		    		<c:if test="${not empty error}">
+					<div class="alert alert-danger" role="alert">
+					  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					  <span class="sr-only">Error:</span>
+					  	${error}
+					</div>
+					<div>
+						<hr/>
+							<a href="${contextPath}/register">Click here</a> to register if you are a new user! 
+						<hr/>
+					</div>    		
+		    		</c:if>
         		   
-			   <form class="form-signin">
+			   <form class="form-signin" name="f" method="POST" action="${contextPath}/login">
+			   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" class="form-control" />
 			   <div class="form-group">
 		        <label for="inputEmail" class="sr-only">Email address</label>
-		        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>			   
+		        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>			   
 			   </div>
 			   <div class="form-group">			   
 		        <label for="inputPassword" class="sr-only">Password</label>
-		        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+		        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 		       </div>
-		       <div class="form-group">
-		        <div class="checkbox">
-		          <label>
-		            <input type="checkbox" value="remember-me"> Remember me
-		          </label>
-		        </div>
-		        </div>
 		        <button class="btn btn-sm btn-primary" type="submit">Sign in</button>
 		      </form>
 	      </div>        		        

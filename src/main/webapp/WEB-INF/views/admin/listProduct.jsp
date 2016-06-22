@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
 <html lang="en" ng-app="webapp">
@@ -17,10 +18,12 @@
 <body>
 
 	<%--include file to display the menu --%>
-	<jsp:include page="../shared/menu.jsp">
+	<%@include file="../shared/menu.jsp" %>
+	
+<%-- 	<jsp:include page="../shared/menu.jsp">
 		<jsp:param value="${contextPath}" name="contextPath"/> 
 	</jsp:include>
-	<%-- -------------------- --%>
+ --%>	<%-- -------------------- --%>
 	
     <!-- Page Content -->
     <div class="container" ng-controller="AdminProductController as adminProductCtrl">
@@ -45,8 +48,14 @@
 					<td>{{product.price}}</td>
 					<td>{{product.quantity}}</td>
 					<td>
-						<a ng-href="product/edit/{{ product.id }}" class="btn btn-primary">Edit</a>
-						<a ng-href="product/remove/{{ product.id }}" class="btn btn-primary">Delete</a>
+						<a ng-href="${contextPath}/#/product/{{ product.id }}/show/" class="btn btn-primary">View</a>
+						<sec:authorize access="hasRole('ROLE_USER') and  (not hasRole('ROLE_ADMIN'))">
+							<a ng-href="#" class="btn btn-primary">Add To Cart</a>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<a ng-href="product/edit/{{ product.id }}" class="btn btn-primary">Edit</a>
+							<a ng-href="product/remove/{{ product.id }}" class="btn btn-primary">Delete</a>													
+						</sec:authorize>
 					</td>
 				</tr>			
         		

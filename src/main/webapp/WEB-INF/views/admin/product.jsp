@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
 <html lang="en">
@@ -18,10 +19,11 @@
 <body>
 
 	<%--include file to display the menu --%>
-	<jsp:include page="../shared/menu.jsp">
+	<%@include file="../shared/menu.jsp" %>
+<%-- 	<jsp:include page="../shared/menu.jsp">
 		<jsp:param value="${contextPath}" name="contextPath"/> 
 	</jsp:include>
-	<%-- -------------------- --%>
+ --%>	<%-- -------------------- --%>
 	
     <!-- Page Content -->
     <div class="container">
@@ -31,6 +33,7 @@
         		<%-- Add Product Code --%>
         		<div class="col-xs-12">
 		<form:form modelAttribute="product" action="${contextPath}/admin/product/add" method="POST" enctype="multipart/form-data">
+		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" class="form-control" />
 		  <form:hidden path="id"/>
 		  <fieldset class="form-group">
 		    <label for="name">Enter Product Name</label>
@@ -67,7 +70,7 @@
 		  	<div class="row">
 		  		<div class="col-md-6">
 				    <label for="uploadImage">Upload Image for Product</label>
-			    		<form:input type="file" class="form-control-file" id="uploadImage" path="file" />
+				    <form:input type="file" path="file" class="form-control-file" id="uploadImage"/>			    		
 	    		  		<%-- <form:errors path="file"/>  --%>
 	    		  		<form:hidden path="imageUrl"/>	    		  		
 		  		</div>

@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <div class="row">
     		<h3>{{productListCtrl.error}}</h3>
     		<h3>Products</h3>
@@ -22,9 +23,13 @@
 					<td>{{product.price}}</td>
 					<td>{{product.quantity}}</td>
 					<td>
-						<a ng-href="#/product/{{ product.id }}/show" class="btn btn-primary">View</a> &#160; 
-						<a ng-href="product/edit/{{ product.id }}" class="btn btn-primary">Edit</a>
-						<a ng-href="#" class="btn btn-primary">Add To Cart</a>
+						<a ng-href="#/product/{{ product.id }}/show" class="btn btn-primary">View</a> &#160;
+						<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+							<a ng-href="product/edit/{{ product.id }}" class="btn btn-primary">Edit</a>
+						</sec:authorize>
+						<sec:authorize access="(isAnonymous() or hasRole('ROLE_USER')) and (not hasRole('ROLE_ADMIN'))">
+							<a ng-href="#" class="btn btn-primary">Add To Cart</a>
+						</sec:authorize>
 					</td>
 				</tr>			
 			</table>        		

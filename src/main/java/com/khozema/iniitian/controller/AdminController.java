@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khozema.iniitian.entity.Product;
@@ -40,7 +41,7 @@ public class AdminController {
 	@RequestMapping(value="/product/add", method=RequestMethod.GET)
 	public String createProduct(Model model) {		
 		Product product = new Product();
-		product.setImageUrl("no_product.jpg");
+		product.setImageUrl("no_product.jpg");		
 		model.addAttribute("product", product);
 		model.addAttribute("categories", getCategories());		
 		return "admin/product";
@@ -54,9 +55,8 @@ public class AdminController {
 			return "admin/product";
 		}
 
-		
 		// call to upload the file
-		if(!product.getFile().isEmpty()) {
+		if(product.getFile()!=null) {
 			product.setImageUrl(uploadImage(product.getFile()));
 		}
 				
@@ -116,8 +116,7 @@ public class AdminController {
 		catch(Exception ex) {}
 		
 		// 4. Return the filename
-		return filename;
-		
+		return filename;		
 		
 	}
 	

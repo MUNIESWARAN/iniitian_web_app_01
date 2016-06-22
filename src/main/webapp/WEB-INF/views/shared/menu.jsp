@@ -9,34 +9,44 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${param.contextPath}">iNIITian Shop</a>
+                <a class="navbar-brand" href="${contextPath}">iNIITian Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li id="about">
-                        <a href="${param.contextPath}/about">About</a>
+                        <a href="${contextPath}/about">About</a>
                     </li>
                     <li id="contact">
-                        <a href="${param.contextPath}/contact">Contact</a>
+                        <a href="${contextPath}/contact">Contact</a>
                     </li>
                     <li id="products">
-                        <a href="${param.contextPath}/#/product/all">View All</a>
+                        <a href="${contextPath}/#/product/all">View All</a>
                     </li>
-                    <li id="login">
-                        <a href="${param.contextPath}/login">
-                        <span class="glyphicon glyphicon-log-in"></span> Login
-                        	</a>
-                    </li>
-                    <li id="register">
-                        <a href="${param.contextPath}/register"><span class="glyphicon glyphicon-user"></span> Register</a>
-                    </li>
-					<li>
-					 <a href="" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		                <li><a href="${param.contextPath}/admin/product/add">Add Product</a></li>
-		                <li><a href="${param.contextPath}/admin/listProduct">List Product</a></li>
-	                  </ul>
+                    <sec:authorize access="isAnonymous()">
+	                    <li id="login">
+	                        <a href="${contextPath}/login">
+	                        <span class="glyphicon glyphicon-log-in"></span> Login
+	                        	</a>
+	                    </li>
+	                    <li id="register">
+	                        <a href="${contextPath}/register"><span class="glyphicon glyphicon-user"></span> Register</a>
+	                    </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li>
+							 <a href="" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+				              <ul class="dropdown-menu">
+				                <li><a href="${contextPath}/admin/product/add">Add Product</a></li>
+				                <li><a href="${contextPath}/admin/listProduct">List Product</a></li>
+			                  </ul>
+		                  </li>                    
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+	                    <li id="logout">
+	                        <a href="${contextPath}/logout"><span class="glyphicon glyphicon-off"></span> Logout</a>
+	                    </li>
+                    </sec:authorize>
             </div>
             <!-- /.navbar-collapse -->
         </div>

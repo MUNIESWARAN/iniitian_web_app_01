@@ -30,7 +30,7 @@ public class Product {
 	private String description;
 	private String imageUrl;
 	@Range(min = 1 , message = "Please select a category! *")
-	private int categoryId;
+	private int categoryId;	
 	@Transient
 	@JsonIgnore
 	private MultipartFile file;

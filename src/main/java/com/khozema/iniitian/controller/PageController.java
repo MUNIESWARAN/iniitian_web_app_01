@@ -19,15 +19,12 @@ public class PageController {
 	public ModelAndView contact() {
 		return new ModelAndView("public/contact").addObject("view", "contact");		
 	}
-	@RequestMapping("/login") 
-	public ModelAndView login() {
-		return new ModelAndView("public/login").addObject("view", "login");		
-	}
 	
 	@RequestMapping("/register") 
 	public ModelAndView register() {
 		return new ModelAndView("public/register").addObject("view", "register");		
 	}
+
 	@RequestMapping("/productList") 
 	public ModelAndView products() {
 		return new ModelAndView("public/productList").addObject("view", "productList");		
@@ -41,4 +38,5 @@ public class PageController {
 		return new ModelAndView("public/default").addObject("view", "products");		
 	}
 
+	
 }
