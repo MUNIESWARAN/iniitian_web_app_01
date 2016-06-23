@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
@@ -32,24 +33,36 @@
         		<%-- Registration form code --%>
         		<div class="col-md-offset-2 col-md-8">
         		   
-			   <form class="form-signin">
+			   <form:form class="form-signin" modelAttribute="user" novalidate="novalidate">
+			   <form:hidden path="id"/>
 			   <div class="form-group">
-		        <label for="inputEmail" class="sr-only">Email address</label>
-		        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>			   
+		        <label for="tbFirstName" class="sr-only">First Name</label>
+		        <form:input type="text" id="tbFirstName" class="form-control" placeholder="First Name" path="firstName" />
+		        <form:errors path="firstName" element="div" cssClass="error"/>			   
+			   </div>
+			   <div class="form-group">
+		        <label for="tbLastName" class="sr-only">Last Name</label>
+		        <form:input type="text" id="tbLastName" class="form-control" placeholder="Last Name" path="lastName" />			   
+		        <form:errors path="lastName" element="div" cssClass="error"/>
+			   </div>
+			   <div class="form-group">
+		        <label for="tbEmailAddress" class="sr-only">Email address</label>
+		        <form:input type="email" id="inputEmail" class="form-control" placeholder="Email address" path="emailAddress" />
+		        <form:errors path="emailAddress" element="div" cssClass="error"/>			   
 			   </div>
 			   <div class="form-group">			   
 		        <label for="inputPassword" class="sr-only">Choose Password</label>
-		        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		        <form:input type="password" id="inputPassword" class="form-control" placeholder="Password" path="password" />
+		        <form:errors path="password" element="div" cssClass="error"/>
 		       </div>
 			   <div class="form-group">			   
 		        <label for="inputPassword" class="sr-only">Confirm Password</label>
-		        <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm Password" required>
+		        <form:input type="password" id="inputConfirmPassword" class="form-control" placeholder="Confirm Password" path="confirmPassword" />
+		        <form:errors path="confirmPassword" element="div" cssClass="error"/>
 		       </div>
 		        <button class="btn btn-sm btn-primary" type="submit">Register</button>
-		      </form>
-	      </div>        		                		
-        
-        
+		      </form:form>
+	      </div>
         </div>
      </div>
 

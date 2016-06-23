@@ -7,25 +7,29 @@
     http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http pattern="/resources/**" security="none" />
-	
+
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/user/**" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/**" access="permitAll" />
-		<form-login login-page="/login" default-target-url="/index" authentication-failure-forward-url="/loginError" /> 		
- 	</http>
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/**" access="permitAll" />		
+		<form-login login-page="/login" default-target-url="/index"
+			authentication-failure-forward-url="/loginError"/>
+	</http>
 	<authentication-manager>
-		<authentication-provider user-service-ref='myUserDetailsService' />
+		<authentication-provider>
+			<jdbc-user-service
+				data-source-ref="dataSource"
+				authorities-by-username-query="select username, authority from authorities where username=?"
+				users-by-username-query="select username, password, enabled from users where username=?"/>			
+		</authentication-provider>
 	</authentication-manager>
 	<!-- <authentication-manager> <authentication-provider> <user-service> <user 
 		name="khozema" password="nullwala" authorities="ROLE_ADMIN,ROLE_USER"/> <user 
 		name="kathir" password="iniitian" authorities="ROLE_USER"/> </user-service> 
 		</authentication-provider> </authentication-manager> -->
 
-	<beans:bean id="myUserDetailsService"
-		class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-		<beans:property name="dataSource" ref="dataSource" />
-	</beans:bean>
-
+	<!-- <beans:bean id="myUserDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl"> 
+		<beans:property name="dataSource" ref="dataSource" /> </beans:bean> -->
 
 </beans:beans>

@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	@Transactional
-	public Product get(int id) {
+	public Product get(Long id) {
 		return this.productDAO.get(id);
 	}
 
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public void remove(int id) {
+	public void remove(Long id) {
 		this.productDAO.remove(id);
 	}
 

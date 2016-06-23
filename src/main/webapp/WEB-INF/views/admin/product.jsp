@@ -34,7 +34,7 @@
         		<div class="col-xs-12">
 		<form:form modelAttribute="product" action="${contextPath}/admin/product/add" method="POST" enctype="multipart/form-data">
 		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" class="form-control" />
-		  <form:hidden path="id"/>
+		  <form:hidden path="id"/><form:hidden path="newProduct"/>
 		  <fieldset class="form-group">
 		    <label for="name">Enter Product Name</label>
 		    <form:input  path="name" id="name" placeholder="Enter name" cssClass="form-control"/>
@@ -46,7 +46,7 @@
 		    <form:errors path="brand" cssClass="error"/>
 		  </fieldset>
 		  <fieldset class="form-group">
-			<label for="category">Select Category</label>
+			<label for="category">Select Category</label>				
 			    <form:select path="categoryId" cssClass="form-control" id="category">
 			    		<form:option value="0">Select a category</form:option>
 					<form:options items="${categories}"/>		    		

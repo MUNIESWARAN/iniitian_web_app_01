@@ -44,16 +44,16 @@
 					</div>    		
 		    		</c:if>
         		   
-			   <form class="form-signin" name="f" method="POST" action="${contextPath}/login">
+			   <form class="form-signin" id="f" name="f" method="POST" action="${contextPath}/login">
 			   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" class="form-control" />
 			   <div class="form-group">
 		        <label for="inputEmail" class="sr-only">Email address</label>
-		        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>			   
+		        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address">			   
 			   </div>
 			   <div class="form-group">			   
 		        <label for="inputPassword" class="sr-only">Password</label>
 
-		        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
 		       </div>
 		        <button class="btn btn-sm btn-primary" type="submit">Sign in</button>
 		      </form>
@@ -78,8 +78,9 @@
 	</jsp:include>
 	<%-- -------------------- --%>
     
+    <script src="${js}/jquery-validate.min.js"></script>
     <script src="${js}/webapp.js"></script>
-
+	
 
 </body>
 

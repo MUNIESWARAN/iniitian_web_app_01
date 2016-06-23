@@ -22,7 +22,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 		
 	@Override
-	public Product get(int id) {
+	public Product get(Long id) {
 		Session session = sessionFactory.getCurrentSession();
 		return session.get(Product.class, id);
 	}
@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public void remove(int id) {
+	public void remove(Long id) {
 		Session session = sessionFactory.getCurrentSession();		
 		Product product = session.get(Product.class, id);
 		session.delete(product);		

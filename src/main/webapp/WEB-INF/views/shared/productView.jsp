@@ -28,7 +28,7 @@
 		
 			<div class="col-md-6">
 				<div class="thumbnail">
-					<img ng-src="resources/images/{{productCtrl.product.imageUrl}}" data-alt="{{productCtrl.product.name}}"/>
+					<img ng-src="${images}/{{productCtrl.product.imageUrl}}" data-alt="{{productCtrl.product.name}}"/>
 				</div>
 			</div>
 		
@@ -41,10 +41,10 @@
 				</ul>
 				<hr/>
 				<sec:authorize access="not hasRole('ROLE_ADMIN')">
-					<a ng-href="user/addToCart/{{ productCtrl.product.id }}" class="btn btn-primary">Add To Cart</a> &#160;
+					<a ng-href="${contextPath}/user/addToCart/{{ productCtrl.product.id }}" class="btn btn-primary">Add To Cart</a> &#160;
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a ng-href="admin/product/edit/{{ productCtrl.product.id }}" class="btn btn-primary">Edit</a></td>
+					<a ng-href="${contextPath}/admin/product/edit/{{ productCtrl.product.id }}" class="btn btn-primary">Edit</a></td>
 				</sec:authorize>		
 				<a ng-href="index" class="btn btn-primary">Back To Home</a></td>
 			</div>

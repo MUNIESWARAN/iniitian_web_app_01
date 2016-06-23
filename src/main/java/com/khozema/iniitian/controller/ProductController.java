@@ -29,7 +29,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/{id}")
-	public @ResponseBody Product get(@PathVariable("id") int id) {
+	public @ResponseBody Product get(@PathVariable("id") Long id) {
 		return this.productService.get(id);
 	}
 	

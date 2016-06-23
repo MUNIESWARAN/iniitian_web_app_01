@@ -21,7 +21,7 @@
                         <a href="${contextPath}/contact">Contact</a>
                     </li>
                     <li id="products">
-                        <a href="${contextPath}/#/product/all">View All</a>
+                        <a href="${contextPath}/productList">View All</a>
                     </li>
                     <sec:authorize access="isAnonymous()">
 	                    <li id="login">
@@ -38,7 +38,6 @@
 							 <a href="" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
 				              <ul class="dropdown-menu">
 				                <li><a href="${contextPath}/admin/product/add">Add Product</a></li>
-				                <li><a href="${contextPath}/admin/listProduct">List Product</a></li>
 			                  </ul>
 		                  </li>                    
                     </sec:authorize>
@@ -47,6 +46,12 @@
 	                        <a href="${contextPath}/logout"><span class="glyphicon glyphicon-off"></span> Logout</a>
 	                    </li>
                     </sec:authorize>
+                 </ul>                 
+                 <sec:authorize access="isAuthenticated()">
+					<ul class="nav navbar-nav pull-right">
+						<li><a><sec:authentication property="principal.username" /></a></li>		                                  
+    		             </ul>
+                 </sec:authorize>
             </div>
             <!-- /.navbar-collapse -->
         </div>

@@ -2,8 +2,6 @@ package com.khozema.iniitian.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
@@ -17,9 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="productId")
-	private int id;
+	private Long id;
 	@NotBlank(message = "Please enter a name! *")
 	private String name;
 	@NotBlank(message = "Please enter brand name! *")
@@ -31,6 +28,18 @@ public class Product {
 	private String imageUrl;
 	@Range(min = 1 , message = "Please select a category! *")
 	private int categoryId;	
+	
+	@Transient
+	private boolean newProduct;
+	
+	public boolean isNewProduct() {
+		return newProduct;
+	}
+
+	public void setNewProduct(boolean newProduct) {
+		this.newProduct = newProduct;
+	}
+
 	@Transient
 	@JsonIgnore
 	private MultipartFile file;
@@ -45,6 +54,10 @@ public class Product {
 	public int getCategoryId() {
 		return categoryId;
 	}
+	
+	public Product() {
+		this.id =(long)(Math.random() * 1000000);
+	}
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
@@ -58,11 +71,11 @@ public class Product {
 		this.imageUrl = imageUrl;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -5,34 +5,31 @@
 // closure to write angular js code
 (function(){
 	
-	var app = angular.module('webapp', ['ngRoute']);
+	var app = angular.module('webapp', []);
 	
-	app.config(function($routeProvider){
-		$routeProvider
-		.when("/", {
-			templateUrl : 'default',
-			controller: 'CategoryController',
-			controllerAs: 'categoryCtrl'	
-		})
-		.when("/category/:id/product", {
-			templateUrl : 'productList',
-			controller: 'ProductListController',
-			controllerAs: 'productListCtrl'	
-		})
-		.when("/product/all", {
-			templateUrl : 'productList',
-			controller: 'ProductListController',
-			controllerAs: 'productListCtrl'	
-		})
-		.when("/product/:id/show", {
-			templateUrl : 'productView',
-			controller: 'ProductController',
-			controllerAs: 'productCtrl'	
-		})
-		.otherwise({
-			redirectTo: '/'
-		})				
-	})
+//	app.config(['$locationProvider', function($locationProvider){
+//		$locationProvider.html5Mode(true);
+//	}]);
+//		$routeProvider
+//		.when("/category/:id/product", {
+//			templateUrl : 'productList',
+//			controller: 'ProductListController',
+//			controllerAs: 'productListCtrl'	
+//		})
+//		.when("/product/all", {
+//			templateUrl : 'productList',
+//			controller: 'ProductListController',
+//			controllerAs: 'productListCtrl'	
+//		})
+//		.when("/product/:id/show", {
+//			templateUrl : 'productView',
+//			controller: 'ProductController',
+//			controllerAs: 'productCtrl'	
+//		})
+//		.otherwise({
+//			redirectTo: '/'
+//		})				
+//	})
 	
 	app.controller('CategoryController', ['$http', function($http) {
 		var self = this;
@@ -48,16 +45,18 @@
 		)
 	}]);
 
-	app.controller('ProductListController', ['$http', '$routeParams',  function($http, $routeParams) {
+	app.controller('ProductListController', ['$http', '$window',  function($http, $window) {
 		var self = this;
 		self.products = [];
 		self.error = '';
-		self.url = "";
-		if($routeParams.id === undefined || $routeParams.id === null) {
+		self.url = '';
+		self.categoryId = $window.location.search.slice($window.location.search.indexOf("=") + 1)
+		
+		if(self.categoryId === undefined || self.categoryId === null || self.categoryId === '') {			
 			self.url = '/iniitianWebApp01/product/all';
 		}
 		else {
-			self.url = '/iniitianWebApp01/category/' + $routeParams.id + '/product';
+			self.url = '/iniitianWebApp01/category/' + self.categoryId + '/product';
 		}
 		
 		$http.get(self.url)
@@ -69,11 +68,12 @@
 		)
 	}]);
 	
-	app.controller('ProductController', ['$http', '$routeParams',  function($http, $routeParams) {
+	app.controller('ProductController', ['$http', '$window',  function($http, $window) {
 		var self = this;
 		self.product = {};
 		self.error = '';
-		self.url = '/iniitianWebApp01/product/' + $routeParams.id;		
+		self.productId = $window.location.search.slice($window.location.search.indexOf("=") + 1)
+		self.url = '/iniitianWebApp01/product/' + self.productId;		
 		$http.get(self.url)
 			.then(function mySuccess(response){
 				self.product = response.data;
@@ -82,22 +82,5 @@
 			}
 		)
 	}]);
-	
-
-	app.controller('AdminProductController', ['$http',  function($http) {
-		var self = this;
-		self.products = [];
-		self.error = '';
-		self.url = '/iniitianWebApp01/product/all';		
-		$http.get(self.url)
-			.then(function mySuccess(response){
-				self.products = response.data;
-			}, function myError(response) {
-				self.error = response.statusText;
-			}
-		)
-	}]);
-	
-	
 	
 }());

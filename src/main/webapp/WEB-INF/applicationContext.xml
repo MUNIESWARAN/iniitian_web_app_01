@@ -9,8 +9,9 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
+	<context:annotation-config/>
 	<context:component-scan base-package="com.khozema.iniitian" />
-
+	
 	<mvc:annotation-driven>
 <!-- 		<mvc:message-converters>
 		    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -40,6 +41,8 @@
 			<list>
 				<value>com.khozema.iniitian.entity.Category</value>
 				<value>com.khozema.iniitian.entity.Product</value>
+				<value>com.khozema.iniitian.entity.User</value>
+				<value>com.khozema.iniitian.entity.Role</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -47,6 +50,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 			</props>
 		</property>
 	</bean>
@@ -71,7 +75,19 @@
  	<bean id="productService" class="com.khozema.iniitian.service.ProductServiceImpl">
 		<property name="productDAO" ref="productDAO"/>
 	</bean>
-
+	<bean id="userDAO" class="com.khozema.iniitian.dao.UserDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="userService" class="com.khozema.iniitian.service.UserServiceImpl">
+		<property name="userDAO" ref="userDAO"/>
+	</bean>
+	<bean id="roleDAO" class="com.khozema.iniitian.dao.RoleDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="roleService" class="com.khozema.iniitian.service.RoleServiceImpl">
+		<property name="roleDAO" ref="roleDAO"/>
+	</bean>	
+	
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 
 </beans>

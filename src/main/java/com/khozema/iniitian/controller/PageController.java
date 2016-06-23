@@ -1,7 +1,9 @@
 package com.khozema.iniitian.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -20,22 +22,13 @@ public class PageController {
 		return new ModelAndView("public/contact").addObject("view", "contact");		
 	}
 	
-	@RequestMapping("/register") 
-	public ModelAndView register() {
-		return new ModelAndView("public/register").addObject("view", "register");		
-	}
-
-	@RequestMapping("/productList") 
+	@RequestMapping(value ="/productList", method = RequestMethod.GET) 
 	public ModelAndView products() {
-		return new ModelAndView("public/productList").addObject("view", "productList");		
+		return new ModelAndView("shared/productList").addObject("view", "productList");		
 	}
-	@RequestMapping("/productView") 
+	@RequestMapping("/productDetail") 
 	public ModelAndView productView() {
-		return new ModelAndView("public/productView").addObject("view", "productView");		
-	}
-	@RequestMapping("/default") 
-	public ModelAndView defaultTemplate() {
-		return new ModelAndView("public/default").addObject("view", "products");		
+		return new ModelAndView("shared/productView").addObject("view", "productView");		
 	}
 
 	

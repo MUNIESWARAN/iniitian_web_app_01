@@ -11,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khozema.iniitian.entity.Product;
@@ -41,7 +41,8 @@ public class AdminController {
 	@RequestMapping(value="/product/add", method=RequestMethod.GET)
 	public String createProduct(Model model) {		
 		Product product = new Product();
-		product.setImageUrl("no_product.jpg");		
+		product.setImageUrl("no_product.jpg");
+		product.setNewProduct(true);
 		model.addAttribute("product", product);
 		model.addAttribute("categories", getCategories());		
 		return "admin/product";
@@ -56,11 +57,11 @@ public class AdminController {
 		}
 
 		// call to upload the file
-		if(product.getFile()!=null) {
+		if(!(product.getFile().getOriginalFilename().equals(""))) {
 			product.setImageUrl(uploadImage(product.getFile()));
 		}
 				
-		if(product.getId() == 0) {			
+		if(product.isNewProduct()) {			
 			this.productService.add(product);
 		}
 		else {
@@ -68,20 +69,20 @@ public class AdminController {
 			this.productService.update(product);
 		}
 				
-		return "redirect:/admin/listProduct";
+		return "redirect:/productList";
 	}
 
 	@RequestMapping(value="/product/edit/{id}", method=RequestMethod.GET)
-	public String editProduct(@PathVariable("id") int id, Model model) {	
+	public String editProduct(@PathVariable("id") Long id, Model model) {	
 		model.addAttribute("product", this.productService.get(id));
 		model.addAttribute("categories", getCategories());		
 		return "admin/product";
 	}
 
 	@RequestMapping(value="/product/remove/{id}", method=RequestMethod.GET)
-	public String removeProduct(@PathVariable("id") int id) {
+	public String removeProduct(@PathVariable("id") Long id) {
 		this.productService.remove(id);
-		return "redirect:/admin/listProduct";
+		return "redirect:/productList";
 	}
 		
 	
@@ -120,6 +121,7 @@ public class AdminController {
 		
 	}
 	
+	@InitBinder("product")
 	public void initBinder(WebDataBinder binder) {
 		binder.addValidators(new ProductValidator());
 	}
