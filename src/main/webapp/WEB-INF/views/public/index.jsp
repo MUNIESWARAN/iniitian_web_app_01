@@ -27,9 +27,9 @@
 
         <div class="row">
             <div class="col-md-3">
-                <p class="lead">iNIITian</p>
+                <p class="lead">Category</p>
                 <div class="list-group" >
-                    <a ng-href="#/category/{{category.id}}/product" class="list-group-item" ng-repeat="category in categoryCtrl.categories">{{category.name}}</a>
+                    <a ng-href="${contextPath}/productList?category={{category.id}}" class="list-group-item" ng-repeat="category in categoryCtrl.categories">{{category.name}}</a>
                 </div>
             </div>
 
@@ -45,13 +45,13 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="item active">
-                                    <img class="slide-image" src="${images}/product_one.jpg" alt="">
+                                    <img class="slide-image" src="${images}/product_one_new.jpg" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="${images}/product_two.jpg" alt="">
+                                    <img class="slide-image" src="${images}/product_two_new.jpg" alt="">
                                 </div>
                                 <div class="item">
-                                    <img class="slide-image" src="${images}/product_three.jpg" alt="">
+                                    <img class="slide-image" src="${images}/product_three_new.jpg" alt="">
                                 </div>
                             </div>
                             <span class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

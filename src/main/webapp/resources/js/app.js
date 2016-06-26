@@ -45,7 +45,7 @@
 		)
 	}]);
 
-	app.controller('ProductListController', ['$http', '$window',  function($http, $window) {
+	app.controller('ProductListController', ['$http', '$window', '$scope',  function($http, $window, $scope) {
 		var self = this;
 		self.products = [];
 		self.error = '';
@@ -66,9 +66,18 @@
 				self.error = response.statusText;
 			}
 		)
+		
+		$scope.addToCart = function(id) {
+			$http.put('/iniitianWebApp01/user/addToCart/'+id)
+			.then(function mySuccess(response){
+				alert('Item successfully added inside the cart!');
+			}) 		
+		}
+		
+		
 	}]);
 	
-	app.controller('ProductController', ['$http', '$window',  function($http, $window) {
+	app.controller('ProductController', ['$http', '$window', '$scope',  function($http, $window, $scope) {
 		var self = this;
 		self.product = {};
 		self.error = '';
@@ -81,6 +90,65 @@
 				self.error = response.statusText;
 			}
 		)
+		
+		$scope.addToCart = function(id) {
+			$http.put('/iniitianWebApp01/user/addToCart/'+id)
+			.then(function mySuccess(response){
+				alert('Item successfully added inside the cart!');
+			}) 		
+		}
+		
 	}]);
+	
+	
+	/*
+	 * Handles the viewCart page along with the RestController i.e. CartController
+	 * */
+	
+	app.controller('CartController', ['$http', '$scope', function($http, $scope){
+				
+		var self = this;
+		self.hasItems = false;
+		self.cart = {};		
+		self.grandTotal = 0;
+				
+		$scope.refreshCartItems = function() { 		
+			$http.get('/iniitianWebApp01/user/cartItems')
+			.then(function mySuccess(response) {
+				self.cart = response.data;
+				self.grandTotal = $scope.grandTotalOfItems();				
+			});			
+		}			
+		
+		$scope.grandTotalOfItems = function() {
+			var temp = 0;
+			for(var i = 0; i < self.cart.cartItems.length; i++) {				
+				temp += self.cart.cartItems[i].totalPrice;
+			}
+			if(temp > 0) {
+				self.hasItems = true;
+			}
+			else {
+				self.hasItems = false;
+			}
+			return temp;
+		}
+		
+						
+		$scope.refreshCartItems();
+		
+				
+		$scope.removeFromCart = function(id) {
+			if(confirm('Are you sure you want to remove this item?')) {
+					$http["delete"]('/iniitianWebApp01/user/removeFromCart/'+id)
+					.then(function mySuccess(response){
+						alert('Item successfully removed from the cart!');
+						$scope.refreshCartItems();
+					});
+			}
+		}
+		
+		
+	}]);	
 	
 }());

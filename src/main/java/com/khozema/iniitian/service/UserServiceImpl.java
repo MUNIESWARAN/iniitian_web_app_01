@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.khozema.iniitian.dao.RoleDAO;
 import com.khozema.iniitian.dao.UserDAO;
+import com.khozema.iniitian.entity.Cart;
 import com.khozema.iniitian.entity.Role;
 import com.khozema.iniitian.entity.User;
 
@@ -30,14 +31,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void add(User user) {
 		//enable the user
-		user.setEnabled(true);
-		this.userDAO.add(user);
-		
+		Cart cart = new Cart();
+		user.setCart(cart);
+		user.setEnabled(true);		
+		this.userDAO.add(user);		
 		Role role = new Role();
 		role.setAuthority("ROLE_USER");
 		role.setUser(user);
 		this.roleDAO.add(role);
-					
 	}
 
 

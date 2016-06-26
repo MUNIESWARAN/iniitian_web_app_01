@@ -26,34 +26,10 @@
 	
     <!-- Page Content -->
     <div class="container">
-    		<h3>Please Login</h3>
+    		<h3>Your order was cancelled!</h3>
     		<hr/>
         <div class="row">
-        		<%-- Login form code --%>
-        		<div class="col-md-offset-2 col-md-8">
-		    		<c:if test="${not empty error}">
-					<div class="alert alert-danger" role="alert">
-					  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-					  <span class="sr-only">Error:</span>
-					  	${error}
-					</div>
-		    		</c:if>
-				<hr/>
-					<a href="${contextPath}/register">Click here</a> to register if you are a new user! 
-				<hr/>        		   
-			   <form class="form-signin" id="f" name="f" method="POST" action="${contextPath}/login">
-			   <div class="form-group">
-		        <label for="inputEmail" class="sr-only">Email address</label>
-		        <input type="text" name="username" id="inputEmail" class="form-control" placeholder="Email address">			   
-			   </div>
-			   <div class="form-group">			   
-		        <label for="inputPassword" class="sr-only">Password</label>
-
-		        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
-		       </div>
-		        <button class="btn btn-sm btn-primary" type="submit">Sign in</button>
-		      </form>
-	      </div>        		        
+        		
         </div>
      </div>
 
@@ -73,9 +49,9 @@
 		<jsp:param value="${js}" name="js"/>
 	</jsp:include>
 	<%-- -------------------- --%>
-    <script src="${js}/plugin-defaults.js"></script>
+    
     <script src="${js}/webapp.js"></script>
-	
+
 
 </body>
 

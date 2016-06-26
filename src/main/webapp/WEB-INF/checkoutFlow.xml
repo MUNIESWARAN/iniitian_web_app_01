@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<var name="shippingAddress" class="com.khozema.iniitian.entity.ShippingAddress"/>
+	<var name="billingAddress" class="com.khozema.iniitian.entity.BillingAddress"/>
+	<var name="cardDetail" class="com.khozema.iniitian.entity.CardDetail"/>
+
+
+	<view-state id="checkout" view="public/shipping" model="shippingAddress">
+		<transition on="enterBillingDetails" to="billingDetails"/> 
+	</view-state>
+
+	<view-state id="billingDetails" view="public/billing" model="billingAddress">
+		<transition on="enterPaymentDetails" to="paymentDetails"/>
+	</view-state>
+
+	<view-state id="paymentDetails" view="public/payment" model="cardDetail">
+		<transition on="paymentConfirm" to="orderConfirm"/>
+	</view-state>
+
+	<end-state id="orderConfirm" view="public/orderConfirmed"/>	
+	<end-state id="cancelOrderProcess" view="public/orderCancel"/>
+	
+	<global-transitions>
+		<transition on="cancelOrder" to="cancelOrderProcess" />
+	</global-transitions>
+
+</flow>

@@ -30,8 +30,8 @@
 	                        	</a>
 	                    </li>
 	                    <li id="register">
-	                        <a href="${contextPath}/register"><span class="glyphicon glyphicon-user"></span> Register</a>
-	                    </li>
+	                        <a href="register"><span class="glyphicon glyphicon-user"></span> Register</a>
+	                    </li>	                    
                     </sec:authorize>
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li>
@@ -47,11 +47,15 @@
 	                    </li>
                     </sec:authorize>
                  </ul>                 
-                 <sec:authorize access="isAuthenticated()">
-					<ul class="nav navbar-nav pull-right">
-						<li><a><sec:authentication property="principal.username" /></a></li>		                                  
-    		             </ul>
-                 </sec:authorize>
+				<ul class="nav navbar-nav pull-right">
+                    <sec:authorize access="isAnonymous()">
+                    		<li><a href="loginUser"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart</a>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated() and (not hasRole('ROLE_ADMIN'))">
+                    		<li id="viewCart"><a href="${contextPath}/user/viewCart"><span class="glyphicon glyphicon-shopping-cart"></span> View Cart</a></li>
+						<li><a><sec:authentication property="principal.username" /></a></li>		                                      		             
+                 	</sec:authorize>                    
+				</ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

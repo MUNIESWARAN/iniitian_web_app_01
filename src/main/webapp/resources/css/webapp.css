@@ -66,3 +66,12 @@ Element Selector
 	width:inherit;
 	height:auto;
 }
+
+.displayProduct td{
+	vertical-align: "middle";
+}
+
+.displayProduct td img {
+	height: 50px;
+	width: auto;
+}

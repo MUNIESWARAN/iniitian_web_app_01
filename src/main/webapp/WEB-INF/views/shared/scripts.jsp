@@ -1,6 +1,6 @@
     <!-- jQuery -->
     <script src="${param.js}/jquery.min.js"></script>
-
+	<script src="${param.js}/jquery-validate.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="${param.js}/bootstrap.min.js"></script>
 

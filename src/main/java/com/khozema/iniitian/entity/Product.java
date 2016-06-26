@@ -1,5 +1,7 @@
 package com.khozema.iniitian.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,8 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Product {
+public class Product implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5458313429441313892L;
 	@Id
 	@Column(name="productId")
 	private Long id;
@@ -22,7 +28,6 @@ public class Product {
 	@NotBlank(message = "Please enter brand name! *")
 	private String brand;
 	private double price;
-	private int quantity;
 	@NotBlank(message = "Please enter description! *")
 	private String description;
 	private String imageUrl;
@@ -103,14 +108,6 @@ public class Product {
 		this.price = price;
 	}
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -121,8 +118,8 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", brand=" + brand + ", price=" + price + ", quantity="
-				+ quantity + ", description=" + description + ", imageUrl=" + imageUrl + ", categoryId=" + categoryId
+		return "Product [id=" + id + ", name=" + name + ", brand=" + brand + ", price=" + price 
+				+ ", description=" + description + ", imageUrl=" + imageUrl + ", categoryId=" + categoryId
 				+ "]";
 	}
 	

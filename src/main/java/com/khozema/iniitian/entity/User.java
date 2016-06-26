@@ -1,8 +1,13 @@
 package com.khozema.iniitian.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -10,14 +15,18 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
-public class User {
-	@Column(name = "user_id")
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8451710539908295586L;
+	@Id
+	@Column(name = "userId")
 	private Long id;
 	@NotBlank(message = "Please enter firstname!")
 	private String firstName;
 	@NotBlank(message = "Please enter lastname!")
 	private String lastName;
-	@Id
 	@NotBlank(message = "Please enter email address!")
 	@Column(name = "username")
 	private String emailAddress;
@@ -27,7 +36,19 @@ public class User {
 	@NotBlank(message = "Please enter confirm password!")
 	private String confirmPassword;
 	private boolean enabled;
-		
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cartId")
+	private Cart cart;
+	
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}

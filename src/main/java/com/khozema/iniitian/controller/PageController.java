@@ -30,6 +30,11 @@ public class PageController {
 	public ModelAndView productView() {
 		return new ModelAndView("shared/productView").addObject("view", "productView");		
 	}
+	
+	@RequestMapping(value = "/user/viewCart")
+	public ModelAndView viewCart() {
+		return new ModelAndView("public/viewCart").addObject("view", "viewCart");
+	}
 
 	
 }

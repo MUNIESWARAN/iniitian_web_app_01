@@ -1,12 +1,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
 	<context:annotation-config/>
@@ -37,12 +39,9 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
+		<property name="packagesToScan">
 			<list>
-				<value>com.khozema.iniitian.entity.Category</value>
-				<value>com.khozema.iniitian.entity.Product</value>
-				<value>com.khozema.iniitian.entity.User</value>
-				<value>com.khozema.iniitian.entity.Role</value>
+				<value>com.khozema.iniitian</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -87,6 +86,79 @@
  	<bean id="roleService" class="com.khozema.iniitian.service.RoleServiceImpl">
 		<property name="roleDAO" ref="roleDAO"/>
 	</bean>	
+	<bean id="cartItemDAO" class="com.khozema.iniitian.dao.CartItemDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="cartItemService" class="com.khozema.iniitian.service.CartItemServiceImpl">
+		<property name="cartItemDAO" ref="cartItemDAO"/>
+	</bean>	
+
+	<bean id="cartDAO" class="com.khozema.iniitian.dao.CartDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="cartService" class="com.khozema.iniitian.service.CartServiceImpl">
+		<property name="cartDAO" ref="cartDAO"/>
+	</bean>	
+	<bean id="orderDAO" class="com.khozema.iniitian.dao.OrderDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="orderService" class="com.khozema.iniitian.service.OrderServiceImpl">
+		<property name="orderDAO" ref="orderDAO"/>
+	</bean>	
+
+
+
+
+	
+	<!-- Web flow configuration -->
+   	<webflow:flow-executor id="flowExecutor">
+   		<webflow:flow-execution-listeners>
+   			<webflow:listener ref="securityFlowExecutionListener"/>
+   		</webflow:flow-execution-listeners>
+   	</webflow:flow-executor>
+   	
+   	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
+   	
+	<webflow:flow-registry id="flowRegistry"
+		flow-builder-services="flowBuilderServices" base-path="/WEB-INF">
+		<!-- here the id is mapped to invoke this flow -->
+		<webflow:flow-location id="loginUser" path="/membershipFlow.xml"/>
+		<webflow:flow-location id="checkout" path="/checkoutFlow.xml"/>
+	</webflow:flow-registry>
+
+	<webflow:flow-builder-services id="flowBuilderServices"
+		view-factory-creator="viewFactoryCreator"/>
+
+	<bean
+		class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor"/>
+	</bean>
+
+	<bean
+		class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry"/>
+		<property name="order" value="0"/>
+	</bean>
+	
+
+	<bean id="viewFactoryCreator"
+		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers">
+			<list>
+				<ref bean="viewResolver"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>		
+	</bean>
+			
 	
 	<mvc:resources location="/resources/" mapping="/resources/**" />
 

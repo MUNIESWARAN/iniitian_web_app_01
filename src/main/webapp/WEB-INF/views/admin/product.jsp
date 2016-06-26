@@ -58,10 +58,6 @@
 		    <form:input path="price" id="price" placeholder="0" cssClass="form-control"/>
 		  </fieldset>
 		  <fieldset class="form-group">
-		    <label for="quantity">Enter Quantity</label>
-		    <form:input path="quantity" id="quantity" placeholder="0" type="number" cssClass="form-control"/>
-		  </fieldset>
-		  <fieldset class="form-group">
 		    <label for="description">Enter Description</label>
 		    <form:textarea path="description" id="description" type="number" cols="50" rows="3" cssClass="form-control"/>
 		    <form:errors path="description" cssClass="error"/>

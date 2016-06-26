@@ -32,7 +32,9 @@
         <div class="row">
         		<%-- Registration form code --%>
         		<div class="col-md-offset-2 col-md-8">
-        		   
+      		  <h4>Already Registered User - <a href="${contextPath}/login">Click here</a> to Sign In</h4>
+      		  <hr/>
+        			        		   
 			   <form:form class="form-signin" modelAttribute="user" novalidate="novalidate">
 			   <form:hidden path="id"/>
 			   <div class="form-group">

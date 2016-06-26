@@ -37,11 +37,13 @@
 				  <li class="list-group-item">Brand: {{productCtrl.product.brand}}</li>
 				  <li class="list-group-item">Description {{productCtrl.product.description}}</li>
 				  <li class="list-group-item">Price per unit: {{productCtrl.product.price | currency}}</li>
-				  <li class="list-group-item">Unit available: {{productCtrl.product.quantity}}</li>		  
 				</ul>
-				<hr/>
-				<sec:authorize access="not hasRole('ROLE_ADMIN')">
-					<a ng-href="${contextPath}/user/addToCart/{{ productCtrl.product.id }}" class="btn btn-primary">Add To Cart</a> &#160;
+				<hr/>				
+				<sec:authorize access="hasRole('ROLE_USER')">
+					<a ng-click="addToCart(product.id)" class="btn btn-primary">Add To Cart</a>							
+				</sec:authorize>
+				<sec:authorize access="isAnonymous()">
+					<a href="loginUser" class="btn btn-primary">Add To Cart</a>
 				</sec:authorize>
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<a ng-href="${contextPath}/admin/product/edit/{{ productCtrl.product.id }}" class="btn btn-primary">Edit</a></td>

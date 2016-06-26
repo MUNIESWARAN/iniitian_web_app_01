@@ -1,10 +1,10 @@
 package com.khozema.iniitian.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -12,13 +12,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "authorities")
-public class Role {
+public class Role implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6745614742604718121L;
+	
 	@Id
-	@Column(name = "authority_id")
+	@Column(name = "authorityId")
 	private Long id;
 	private String authority;	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "username")
+	@JoinColumn(name = "userId")
 	private User user;
 	
 	public Role() {

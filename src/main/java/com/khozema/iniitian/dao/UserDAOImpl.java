@@ -6,7 +6,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.khozema.iniitian.entity.Category;
 import com.khozema.iniitian.entity.User;
 
 @Repository
