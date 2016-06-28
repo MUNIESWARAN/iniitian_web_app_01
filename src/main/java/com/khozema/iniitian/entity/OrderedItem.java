@@ -11,32 +11,33 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class CartItem implements Serializable{
+public class OrderedItem implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8693665116181503471L;
-	
+	private static final long serialVersionUID = 7998354775759364734L;
+
 	@Id
-	@Column(name = "cartItemId")
+	@Column(name = "orderedItemId")
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "cartId")
+	@JoinColumn(name = "userId")
 	@JsonIgnore
-	private Cart cart;
-	
+	private User user;
+
+	@ManyToOne
+	@JoinColumn(name = "orderId")
+	@JsonIgnore
+	private OrderDetail order;
+		
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	private Product product;
-	
+		
 	private int quantity;
 	private double totalPrice;
-		
-
-	public CartItem() {
-		this.id = (long)(Math.random() * 1000000000000L);
+	
+	public OrderedItem() {
+		this.id = (long)(Math.random() * 10000000000L);
 	}
 		
 	public Long getId() {
@@ -45,11 +46,17 @@ public class CartItem implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Cart getCart() {
-		return cart;
+	public User getUser() {
+		return user;
 	}
-	public void setCart(Cart cart) {
-		this.cart = cart;
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public OrderDetail getOrder() {
+		return order;
+	}
+	public void setOrder(OrderDetail order) {
+		this.order = order;
 	}
 	public Product getProduct() {
 		return product;
@@ -69,7 +76,7 @@ public class CartItem implements Serializable{
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	
 
+	
+	
 }

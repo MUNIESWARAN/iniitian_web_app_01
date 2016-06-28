@@ -5,24 +5,20 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.khozema.iniitian.entity.BillingAddress;
-import com.khozema.iniitian.entity.OrderDetail;
-
+import com.khozema.iniitian.entity.OrderedItem;
 @Repository
-public class OrderDAOImpl implements OrderDAO {
+public class OrderedItemDAOImpl implements OrderedItemDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	public void setSessionFactory (SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-		
+	
 	@Override
-	public void add(OrderDetail order) {
+	public void add(OrderedItem orderedItem) {
 		Session session = sessionFactory.getCurrentSession();
-		session.saveOrUpdate(order.getBillingAddress());
-		session.saveOrUpdate(order.getShippingAddress());
-		session.saveOrUpdate(order);
+		session.saveOrUpdate(orderedItem);
 	}
 
 }

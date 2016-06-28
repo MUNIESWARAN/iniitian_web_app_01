@@ -51,7 +51,7 @@
 			   <div class="form-group">			   
 		        <label for="ddlCity" class="sr-only">City</label>
 				    <form:select path="city" cssClass="form-control" id="ddlCity">
-				    		<form:option value="0">Select City</form:option>
+				    		<form:option value="">Select City</form:option>
 						<form:option value="Mumbai">Mumbai</form:option>
 						<form:option value="Pune">Pune</form:option>								    		
 				    </form:select>		        
@@ -60,7 +60,7 @@
 			   <div class="form-group">			   
 		        <label for="ddlState" class="sr-only">State</label>
 				    <form:select path="state" cssClass="form-control" id="ddlState">
-				    		<form:option value="0">Select State</form:option>
+				    		<form:option value="">Select State</form:option>
 						<form:option value="Maharashtra">Maharashtra</form:option>
 						<form:option value="Karnataka">Karnataka</form:option>								    		
 				    </form:select>		        
@@ -69,7 +69,7 @@
 			   <div class="form-group">			   
 		        <label for="ddlCountry" class="sr-only">Country</label>
 				    <form:select path="country" cssClass="form-control" id="ddlCountry">
-				    		<form:option value="0">Select Country</form:option>
+				    		<form:option value="">Select Country</form:option>
 						<form:option value="India">India</form:option>
 						<form:option value="USA">USA</form:option>								    		
 				    </form:select>		        
@@ -80,8 +80,8 @@
 		        <form:input type="text" id="tbZipcode" class="form-control" placeholder="Enter Zip Code" path="zipCode" />
 		        <form:errors path="zipCode" element="div" cssClass="error"/>
 		       </div>
-		        <button class="btn btn-warning" name="_eventId_enterBillingDetails" type="submit">Save</button>
-		        <button class="btn btn-danger" name="_eventId_cancelOrder" type="submit">Cancel Order</button>
+		        <button class="btn btn-warning" name="_eventId_submitShippingDetails" type="submit">Save</button>
+		        <button class="btn btn-danger" name="_eventId_cancel" type="submit">Cancel</button>
 		      </form:form>
 					
     			</div>

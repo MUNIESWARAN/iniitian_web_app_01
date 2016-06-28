@@ -106,8 +106,23 @@
 		<property name="orderDAO" ref="orderDAO"/>
 	</bean>	
 
+	<bean id="cardDetailDAO" class="com.khozema.iniitian.dao.CardDetailDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="cardDetailService" class="com.khozema.iniitian.service.CardDetailServiceImpl">
+		<property name="cardDetailDAO" ref="cardDetailDAO"/>
+	</bean>	
+
+	<bean id="orderedItemDAO" class="com.khozema.iniitian.dao.OrderedItemDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+ 	<bean id="orderedItemService" class="com.khozema.iniitian.service.OrderedItemServiceImpl">
+		<property name="orderedItemDAO" ref="orderedItemDAO"/>
+	</bean>	
 
 
+
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
 	
 	<!-- Web flow configuration -->
@@ -127,7 +142,7 @@
 	</webflow:flow-registry>
 
 	<webflow:flow-builder-services id="flowBuilderServices"
-		view-factory-creator="viewFactoryCreator"/>
+		view-factory-creator="viewFactoryCreator" validator="validator"/>
 
 	<bean
 		class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">

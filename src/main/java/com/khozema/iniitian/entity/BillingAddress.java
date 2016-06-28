@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -26,14 +27,15 @@ public class BillingAddress implements Serializable {
     private String addressLine2;
     @NotBlank( message = "Please select your city! *")
     private String city;
-	@NotBlank( message = "Please enter state! *")
+	@NotBlank( message = "Please select your state! *")
     private String state;
-	@NotBlank( message = "Please enter country! *")
+	@NotBlank( message = "Please select your country! *")
     private String country;
 	@NotBlank( message = "Please enter zip code! *")
     private String zipCode;
     
     @OneToOne
+    @JoinColumn(name = "userId")
     private User user;
 
     public BillingAddress() {

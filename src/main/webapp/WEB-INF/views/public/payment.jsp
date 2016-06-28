@@ -35,7 +35,7 @@
 	        		<fieldset class="form-group">
 				    <label for="cardType">Select Card Type</label>
 				    <form:select path="cardType" cssClass="form-control" id="ddlCity">
-				    		<form:option value="0">Select card</form:option>
+				    		<form:option value="">Select card</form:option>
 						<form:option value="visa">Visa</form:option>
 						<form:option value="master">Master</form:option>								    		
 				    </form:select>		        
@@ -44,13 +44,14 @@
 				  <fieldset class="form-group">
 				    <label for="cardNumber">Enter Card Number</label>
 				    <form:input path="cardNumber" id="cardNumber" placeholder="Card Number" cssClass="form-control"/>
+				    <form:errors path="cardNumber"/>
 				  </fieldset>
 	        		<fieldset class="form-group">
 				    <label>Select Expiry Month and Year</label>
 				    <div class="row">
 					    <div class="col-md-2">
 					    <form:select path="expiryMonth" cssClass="form-control" id="expiryMonth">
-					    		<form:option value="0">MM</form:option>
+					    		<form:option value="">MM</form:option>
 							<form:option value="1">JAN</form:option>
 							<form:option value="2">FEB</form:option>
 							<form:option value="3">MAR</form:option>
@@ -67,7 +68,7 @@
 					    </div>
 					    <div class="col-md-2">
 					    <form:select path="expiryYear" cssClass="form-control" id="expiryMonth">
-					    		<form:option value="0">YY</form:option>
+					    		<form:option value="">YY</form:option>
 							<form:option value="16">16</form:option>
 							<form:option value="17">17</form:option>
 							<form:option value="18">18</form:option>
@@ -87,18 +88,21 @@
 				  <fieldset class="form-group">
 				    <label for="cvNumber">Enter CVV Number</label>				    
 				    <form:password path="cvNumber" id="cardNumber" placeholder="XXX" cssClass="form-control"/>
+				    <form:errors path="cvNumber" cssClass="error"/>
 				  </fieldset>
 				  <fieldset class="form-group">
 				    <label for="nameOnCard">Name on card</label>				    
-				    <form:password path="nameOnCard" id="nameOnCard" placeholder="Name on card" cssClass="form-control"/>
+				    <form:input path="nameOnCard" id="nameOnCard" placeholder="Name on card" cssClass="form-control"/>
+				    <form:errors path="nameOnCard" cssClass="error"/>
 				  </fieldset>
 				  <fieldset class="form-group">
 				    <label for="atmPin">Enter ATM Pin</label>				    
 				    <form:password path="atmPin" id="atmPin" placeholder="XXXX" cssClass="form-control"/>
+				    <form:errors path="atmPin" cssClass="error"/>
 				  </fieldset>
 				  <fieldset class="form-group">
-			        <button class="btn btn-success" name="_eventId_paymentConfirm" type="submit">Confirm Payment</button>
-			        <button class="btn btn-danger" name="_eventId_cancelOrder" type="submit">Cancel Order</button>				  	
+			        <button class="btn btn-success" name="_eventId_submitPaymentDetails" type="submit">Confirm Payment</button>
+			        <button class="btn btn-danger" name="_eventId_cancel" type="submit">Cancel</button>				  	
 				  </fieldset>
 				  
       		</form:form>

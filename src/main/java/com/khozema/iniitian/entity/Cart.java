@@ -39,7 +39,7 @@ public class Cart implements Serializable{
 		this.id = id;
 	}
 
-	public List<CartItem> getCartItems() {
+	public List<CartItem> getCartItems() {		
 		return cartItems;
 	}
 

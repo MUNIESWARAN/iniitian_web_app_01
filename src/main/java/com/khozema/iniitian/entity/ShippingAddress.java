@@ -5,12 +5,20 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class ShippingAddress implements Serializable {
+
+	@Override
+	public String toString() {
+		return "ShippingAddress [id=" + id + ", houseNumber=" + houseNumber + ", addressLine1=" + addressLine1
+				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country=" + country
+				+ ", zipCode=" + zipCode + "]";
+	}
 
 	/**
 	 * 
@@ -26,14 +34,15 @@ public class ShippingAddress implements Serializable {
     private String addressLine2;
     @NotBlank( message = "Please select your city! *")
     private String city;
-	@NotBlank( message = "Please enter state! *")
+	@NotBlank( message = "Please select your state! *")
     private String state;
-	@NotBlank( message = "Please enter country! *")
+	@NotBlank( message = "Please select your country! *")
     private String country;
 	@NotBlank( message = "Please enter zip code! *")
     private String zipCode;
     
     @OneToOne
+    @JoinColumn(name = "userId")
     private User user;
 
     public ShippingAddress() {

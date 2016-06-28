@@ -40,7 +40,7 @@
 				</ul>
 				<hr/>				
 				<sec:authorize access="hasRole('ROLE_USER')">
-					<a ng-click="addToCart(product.id)" class="btn btn-primary">Add To Cart</a>							
+					<a ng-click="addToCart(productCtrl.product.id)" class="btn btn-primary">Add To Cart</a>							
 				</sec:authorize>
 				<sec:authorize access="isAnonymous()">
 					<a href="loginUser" class="btn btn-primary">Add To Cart</a>

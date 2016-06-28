@@ -15,6 +15,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class CardDetail implements Serializable {
+	@Override
+	public String toString() {
+		return "CardDetail [id=" + id + ", cardType=" + cardType + ", cardNumber=" + cardNumber + ", expiryMonth="
+				+ expiryMonth + ", expiryYear=" + expiryYear + ", cvNumber=" + cvNumber + ", nameOnCard=" + nameOnCard
+				+ ", atmPin=" + atmPin + ", totalCost=" + totalCost + "]";
+	}
+
 	private static final long serialVersionUID = -8090789645980719576L;
 
 	@Id
@@ -42,17 +49,17 @@ public class CardDetail implements Serializable {
     
     @NotBlank (message = "The ATM pin must not be empty! *")
     private String atmPin;
+        
+    private Long userId;
     
-    @ManyToOne
-    @JoinColumn(name = "cartId")
-    @JsonIgnore
-    private Cart cart;
-    
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    @JsonIgnore
-    private User usersDetail;
-    
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	private double totalCost;
 	
 	public CardDetail() {
@@ -121,22 +128,6 @@ public class CardDetail implements Serializable {
 
 	public void setAtmPin(String atmPin) {
 		this.atmPin = atmPin;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	public User getUsersDetail() {
-		return usersDetail;
-	}
-
-	public void setUsersDetail(User usersDetail) {
-		this.usersDetail = usersDetail;
 	}
 
 	public double getTotalCost() {

@@ -7,25 +7,46 @@
 	<var name="shippingAddress" class="com.khozema.iniitian.entity.ShippingAddress"/>
 	<var name="billingAddress" class="com.khozema.iniitian.entity.BillingAddress"/>
 	<var name="cardDetail" class="com.khozema.iniitian.entity.CardDetail"/>
+	<var name="orderDetail" class="com.khozema.iniitian.entity.OrderDetail"/>
 
+	<on-start>
+		<evaluate expression="orderController.initFlow()" result="flowScope.orderDetail"/>
+	</on-start>
 
 	<view-state id="checkout" view="public/shipping" model="shippingAddress">
-		<transition on="enterBillingDetails" to="billingDetails"/> 
+		<transition on="submitShippingDetails" to="shippingDetails"/>
 	</view-state>
 
-	<view-state id="billingDetails" view="public/billing" model="billingAddress">
-		<transition on="enterPaymentDetails" to="paymentDetails"/>
+	<action-state id="shippingDetails">
+		<evaluate expression="orderController.addShippingDetail(flowScope.orderDetail, shippingAddress)"/>
+		<transition on="success" to="viewBillingDetails"/>
+	</action-state>
+
+	<view-state id="viewBillingDetails" view="public/billing" model="billingAddress">
+		<transition on="submitBillingDetails" to="billingDetails"/>
 	</view-state>
 
-	<view-state id="paymentDetails" view="public/payment" model="cardDetail">
-		<transition on="paymentConfirm" to="orderConfirm"/>
+	<action-state id="billingDetails">
+		<evaluate expression="orderController.addBillingDetail(flowScope.orderDetail, billingAddress)"/>
+		<transition on="success" to="viewPaymentDetails"/>
+	</action-state>
+	
+	<view-state id="viewPaymentDetails" view="public/payment" model="cardDetail">
+		<transition on="submitPaymentDetails" to="paymentDetails"/>
 	</view-state>
+
+
+	<action-state id="paymentDetails">
+		<evaluate expression="orderController.confirmOrder(flowScope.orderDetail, cardDetail)"/>
+		<transition on="success" to="orderConfirm"/>
+	</action-state>
+	
 
 	<end-state id="orderConfirm" view="public/orderConfirmed"/>	
-	<end-state id="cancelOrderProcess" view="public/orderCancel"/>
+	<end-state id="toViewCart" view="externalRedirect:contextRelative:/user/viewCart"/>
 	
 	<global-transitions>
-		<transition on="cancelOrder" to="cancelOrderProcess" />
+		<transition on="cancel" to="toViewCart" />
 	</global-transitions>
 
 </flow>
